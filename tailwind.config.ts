@@ -88,7 +88,32 @@ const config: Config = {
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  		},
+  		fontFamily: {
+  			sans: [
+  				"-apple-system",
+  				"system-ui",
+  				"BlinkMacSystemFont",
+  				"\"Segoe UI\"",
+  				"Roboto",
+  				"\"Helvetica Neue\"",
+  				"\"Fira Sans\"",
+  				"Ubuntu",
+  				"Oxygen",
+  				"\"Oxygen Sans\"",
+  				"Cantarell",
+  				"\"Droid Sans\"",
+  				"\"Apple Color Emoji\"",
+  				"\"Segoe UI Emoji\"",
+  				"\"Segoe UI Symbol\"",
+  				"\"Lucida Grande\"",
+  				"Helvetica",
+  				"Arial",
+  				"var(--font-inter)",
+  				"sans-serif",
+  			],
+  			mono: ["var(--font-roboto-mono)", "ui-monospace", "monospace"],
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],
