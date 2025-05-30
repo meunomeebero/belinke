@@ -169,7 +169,7 @@ export function CustomizationSidebar({
                         value={field.value}
                         onChange={handleInputChange}
                         placeholder={field.placeholder}
-                        className="bg-white dark:bg-[#1A1A1A] border-gray-300 dark:border-[#282B36] focus:border-sky-500 dark:focus:border-[#ADADAD] focus:ring-sky-500 dark:focus:ring-[#ADADAD] text-gray-900 dark:text-[#F8F8F2] placeholder:text-gray-400 dark:placeholder:text-[#ADADAD]"
+                        className="bg-gray-50 dark:bg-[#1A1A1A] border-gray-300 dark:border-[#282B36] focus:border-sky-500 dark:focus:border-[#ADADAD] focus:ring-sky-500 dark:focus:ring-[#ADADAD] text-gray-900 dark:text-[#F8F8F2] placeholder:text-gray-400 dark:placeholder:text-[#ADADAD]"
                       />
                     </div>
                   ))}

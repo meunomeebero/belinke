@@ -11,6 +11,7 @@ import {
   CustomizationSidebar,
   ProfileData,
 } from "@/components/customization-sidebar"
+import { BeroProfile } from "@/components/bero-profile"
 import { toPng } from 'html-to-image'
 
 const LOCAL_STORAGE_KEY = 'belinkeProfileDraft'
@@ -406,6 +407,7 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
+      <BeroProfile />
     </div>
   )
 }
