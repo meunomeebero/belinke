@@ -112,178 +112,112 @@ export function CustomizationSidebar({
   };
 
   return (
-    <div className="w-96 min-w-96 h-full flex flex-col border-r border-gray-200 bg-gray-50 font-mono">
-      <div className="p-6 border-b border-gray-200">
-        <h2 className="text-xl font-semibold text-gray-800">Personalizar Perfil</h2>
+    <div className="w-96 min-w-96 h-full flex flex-col 
+                  bg-gray-50 border-r border-gray-200 
+                  dark:bg-[#191919] dark:border-r-[#282B36] 
+                  font-mono">
+      <div className="p-6 border-b border-gray-200 dark:border-b-[#282B36]">
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-[#F8F8F2]">
+          🐝 Belink
+        </h2>
+        <p className="text-sm text-gray-500 dark:text-[#ADADAD]">
+          Feito por Bero com ☕️
+        </p>
       </div>
 
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
-        <Accordion type="multiple" defaultValue={["basic-info", "experiences", "recommendations"]} className="w-full">
+        <Accordion
+          type="multiple"
+          defaultValue={["basic-info", "experiences", "recommendations"]}
+          className="w-full"
+        >
           {/* Basic Info */}
           <AccordionItem value="basic-info" className="border-b-0">
-            <AccordionTrigger className="py-3 text-base font-medium text-gray-700 hover:no-underline hover:bg-gray-100 rounded-md px-3 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900">
+            <AccordionTrigger className="py-3 text-base font-medium 
+                                       text-gray-700 hover:no-underline 
+                                       hover:bg-gray-100 dark:hover:bg-[#282B36] 
+                                       rounded-md px-3 
+                                       data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 
+                                       dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2]">
               Informações Básicas
             </AccordionTrigger>
             <AccordionContent className="pt-4 px-1 space-y-4">
-              <div className="space-y-1.5">
-                <Label htmlFor="name" className="text-sm font-medium text-gray-600">Nome do Perfil</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={profileData.name}
-                  onChange={handleInputChange}
-                  placeholder="Ex: João Silva"
-                  className="bg-white border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="title" className="text-sm font-medium text-gray-600">Cargo</Label>
-                <Input
-                  id="title"
-                  name="title"
-                  value={profileData.title}
-                  onChange={handleInputChange}
-                  placeholder="Ex: Engenheiro de Software"
-                  className="bg-white border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="location" className="text-sm font-medium text-gray-600">Localização</Label>
-                <Input
-                  id="location"
-                  name="location"
-                  value={profileData.location}
-                  onChange={handleInputChange}
-                  placeholder="Ex: São Paulo, Brasil"
-                  className="bg-white border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="followers" className="text-sm font-medium text-gray-600">Seguidores</Label>
-                <Input
-                  id="followers"
-                  name="followers"
-                  value={profileData.followers}
-                  onChange={handleInputChange}
-                  placeholder="Ex: 500+"
-                  className="bg-white border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="connections" className="text-sm font-medium text-gray-600">Conexões</Label>
-                <Input
-                  id="connections"
-                  name="connections"
-                  value={profileData.connections}
-                  onChange={handleInputChange}
-                  placeholder="Ex: 500+"
-                  className="bg-white border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="profileImageUrl" className="text-sm font-medium text-gray-600">URL da Imagem de Perfil</Label>
-                <Input
-                  id="profileImageUrl"
-                  name="profileImageUrl"
-                  value={profileData.profileImageUrl || ""}
-                  onChange={handleInputChange}
-                  placeholder="https://exemplo.com/imagem.png"
-                  className="bg-white border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="coverImageUrl" className="text-sm font-medium text-gray-600">URL da Imagem de Capa</Label>
-                <Input
-                  id="coverImageUrl"
-                  name="coverImageUrl"
-                  value={profileData.coverImageUrl || ""}
-                  onChange={handleInputChange}
-                  placeholder="https://exemplo.com/capa.png"
-                  className="bg-white border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                />
-              </div>
+              {[ 
+                { id: "name", label: "Nome do Perfil", placeholder: "Ex: Dr. Nova Quantum", value: profileData.name },
+                { id: "title", label: "Cargo", placeholder: "Ex: Chief Reality Officer...", value: profileData.title },
+                { id: "location", label: "Localização", placeholder: "Ex: Mars Colony Alpha...", value: profileData.location },
+                { id: "followers", label: "Seguidores", placeholder: "Ex: 1 Bilhão", value: profileData.followers },
+                { id: "connections", label: "Conexões", placeholder: "Ex: ∞ Conexões", value: profileData.connections },
+                { id: "profileImageUrl", label: "URL da Imagem de Perfil", placeholder: "https://...", value: profileData.profileImageUrl || ""},
+                { id: "coverImageUrl", label: "URL da Imagem de Capa", placeholder: "https://...", value: profileData.coverImageUrl || "" },
+              ].map(field => (
+                <div key={field.id} className="space-y-1.5">
+                  <Label htmlFor={field.id} className="text-sm font-medium text-gray-600 dark:text-[#ADADAD]">{field.label}</Label>
+                  <Input
+                    id={field.id}
+                    name={field.id}
+                    value={field.value}
+                    onChange={handleInputChange}
+                    placeholder={field.placeholder}
+                    className="bg-white dark:bg-[#1A1A1A] border-gray-300 dark:border-[#282B36] focus:border-sky-500 dark:focus:border-[#ADADAD] focus:ring-sky-500 dark:focus:ring-[#ADADAD] text-gray-900 dark:text-[#F8F8F2] placeholder:text-gray-400 dark:placeholder:text-[#ADADAD]"
+                  />
+                </div>
+              ))}
             </AccordionContent>
           </AccordionItem>
 
           {/* Experiences */}
           <AccordionItem value="experiences" className="border-b-0 mt-2">
-            <AccordionTrigger className="py-3 text-base font-medium text-gray-700 hover:no-underline hover:bg-gray-100 rounded-md px-3 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900">
-                Experiências
+            <AccordionTrigger className="py-3 text-base font-medium text-gray-700 hover:no-underline hover:bg-gray-100 dark:hover:bg-[#282B36] rounded-md px-3 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2]">
+              Experiências
             </AccordionTrigger>
             <AccordionContent className="pt-4 px-1 space-y-4">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={addExperience}
-                className="w-full flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 focus:ring-sky-500"
+                className="w-full flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 dark:text-[#ADADAD] dark:border-[#ADADAD] dark:hover:bg-[#282B36] dark:hover:text-[#F8F8F2] focus:ring-[#ADADAD]"
               >
                 <PlusCircle size={18} /> Adicionar Experiência
               </Button>
               {profileData.experiences.map((exp, index) => (
-                <div key={exp.id} className="p-4 border border-gray-200 rounded-lg space-y-3 bg-white shadow-sm">
+                <div
+                  key={exp.id}
+                  className="p-4 border rounded-lg space-y-3 shadow-sm bg-white dark:bg-[#282B36] border-gray-200 dark:border-[#191919]"
+                >
                   <div className="flex justify-between items-center">
-                    <p className="font-medium text-gray-700">Experiência {index + 1}</p>
-                    <Button variant="ghost" size="icon" onClick={() => removeExperience(index)} className="text-red-500 hover:bg-red-100 hover:text-red-600">
+                    <p className="font-medium text-gray-700 dark:text-[#F8F8F2]">
+                      Experiência {index + 1}
+                    </p>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removeExperience(index)}
+                      className="text-red-500 hover:bg-red-100 hover:text-red-600 dark:text-red-400 dark:hover:bg-[#191919] dark:hover:text-red-300"
+                    >
                       <Trash2 size={16} />
                     </Button>
                   </div>
+                  {[ 
+                    { id: `exp-title-${index}`, name: "title", label: "Cargo", placeholder: "Cargo", value: exp.title },
+                    { id: `exp-company-${index}`, name: "company", label: "Empresa", placeholder: "Empresa", value: exp.company },
+                    { id: `exp-duration-${index}`, name: "duration", label: "Período", placeholder: "Ex: Jan 2020 - Presente", value: exp.duration },
+                    { id: `exp-companyImageUrl-${index}`, name: "companyImageUrl", label: "URL Imagem da Empresa", placeholder: "https://...", value: exp.companyImageUrl || ""},
+                  ].map(field => (
+                    <div key={field.id} className="space-y-1.5">
+                        <Label htmlFor={field.id} className="text-xs font-medium text-gray-500 dark:text-[#ADADAD]">{field.label}</Label>
+                        <Input
+                            id={field.id}
+                            value={(field.value)}
+                            onChange={(e) => handleExperienceChange(index, field.name as keyof Experience, e.target.value)}
+                            placeholder={field.placeholder}
+                            className="bg-gray-50 dark:bg-[#1A1A1A] border-gray-300 dark:border-[#282B36] focus:border-sky-500 dark:focus:border-[#ADADAD] focus:ring-sky-500 dark:focus:ring-[#ADADAD] text-gray-900 dark:text-[#F8F8F2] placeholder:text-gray-400 dark:placeholder:text-[#ADADAD]"
+                        />
+                    </div>
+                  ))}
                   <div className="space-y-1.5">
-                    <Label htmlFor={`exp-title-${index}`} className="text-xs font-medium text-gray-500">Cargo</Label>
-                    <Input
-                      id={`exp-title-${index}`}
-                      value={exp.title}
-                      onChange={(e) => handleExperienceChange(index, "title", e.target.value)}
-                      placeholder="Cargo"
-                      className="bg-gray-50 border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                     <Label htmlFor={`exp-company-${index}`} className="text-xs font-medium text-gray-500">Empresa</Label>
-                    <Input
-                      id={`exp-company-${index}`}
-                      value={exp.company}
-                      onChange={(e) => handleExperienceChange(index, "company", e.target.value)}
-                      placeholder="Empresa"
-                      className="bg-gray-50 border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor={`exp-duration-${index}`} className="text-xs font-medium text-gray-500">Período</Label>
-                    <Input
-                      id={`exp-duration-${index}`}
-                      value={exp.duration}
-                      onChange={(e) => handleExperienceChange(index, "duration", e.target.value)}
-                      placeholder="Ex: Jan 2020 - Presente"
-                      className="bg-gray-50 border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor={`exp-desc-${index}`} className="text-xs font-medium text-gray-500">Descrição</Label>
-                    <Textarea
-                      id={`exp-desc-${index}`}
-                      value={exp.description || ""}
-                      onChange={(e) => handleExperienceChange(index, "description", e.target.value)}
-                      placeholder="Descrição (opcional)"
-                      className="bg-gray-50 border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                      rows={3}
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label
-                      htmlFor={`exp-companyImageUrl-${index}`}
-                      className="text-xs font-medium text-gray-500"
-                    >
-                      URL Imagem da Empresa
-                    </Label>
-                    <Input
-                      id={`exp-companyImageUrl-${index}`}
-                      value={exp.companyImageUrl || ""}
-                      onChange={(e) =>
-                        handleExperienceChange(index, "companyImageUrl", e.target.value)
-                      }
-                      placeholder="https://exemplo.com/logo-empresa.png"
-                      className="bg-gray-50 border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                    />
+                     <Label htmlFor={`exp-desc-${index}`} className="text-xs font-medium text-gray-500 dark:text-[#ADADAD]">Descrição</Label>
+                    <Textarea id={`exp-desc-${index}`} value={exp.description || ""} onChange={(e) => handleExperienceChange(index, "description", e.target.value)} placeholder="Descrição (opcional)" className="bg-gray-50 dark:bg-[#1A1A1A] border-gray-300 dark:border-[#282B36] focus:border-sky-500 dark:focus:border-[#ADADAD] focus:ring-sky-500 dark:focus:ring-[#ADADAD] text-gray-900 dark:text-[#F8F8F2] placeholder:text-gray-400 dark:placeholder:text-[#ADADAD]" rows={3} />
                   </div>
                 </div>
               ))}
@@ -292,77 +226,57 @@ export function CustomizationSidebar({
 
           {/* Recommendations */}
           <AccordionItem value="recommendations" className="border-b-0 mt-2">
-             <AccordionTrigger className="py-3 text-base font-medium text-gray-700 hover:no-underline hover:bg-gray-100 rounded-md px-3 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900">
-                Recomendações
+            <AccordionTrigger className="py-3 text-base font-medium text-gray-700 hover:no-underline hover:bg-gray-100 dark:hover:bg-[#282B36] rounded-md px-3 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2]">
+              Recomendações
             </AccordionTrigger>
             <AccordionContent className="pt-4 px-1 space-y-4">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={addRecommendation}
-                className="w-full flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 focus:ring-sky-500"
+                className="w-full flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 dark:text-[#ADADAD] dark:border-[#ADADAD] dark:hover:bg-[#282B36] dark:hover:text-[#F8F8F2] focus:ring-[#ADADAD]"
               >
                 <PlusCircle size={18} /> Adicionar Recomendação
               </Button>
               {profileData.recommendations.map((rec, index) => (
-                <div key={rec.id} className="p-4 border border-gray-200 rounded-lg space-y-3 bg-white shadow-sm">
+                <div
+                  key={rec.id}
+                  className="p-4 border rounded-lg space-y-3 shadow-sm bg-white dark:bg-[#282B36] border-gray-200 dark:border-[#191919]"
+                >
                   <div className="flex justify-between items-center">
-                      <p className="font-medium text-gray-700">Recomendação {index + 1}</p>
-                      <Button variant="ghost" size="icon" onClick={() => removeRecommendation(index)} className="text-red-500 hover:bg-red-100 hover:text-red-600">
-                          <Trash2 size={16} />
-                      </Button>
+                    <p className="font-medium text-gray-700 dark:text-[#F8F8F2]">
+                      Recomendação {index + 1}
+                    </p>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removeRecommendation(index)}
+                      className="text-red-500 hover:bg-red-100 hover:text-red-600 dark:text-red-400 dark:hover:bg-[#191919] dark:hover:text-red-300"
+                    >
+                      <Trash2 size={16} />
+                    </Button>
                   </div>
                   <div className="space-y-1.5">
-                    <Label htmlFor={`rec-text-${index}`} className="text-xs font-medium text-gray-500">Texto</Label>
-                    <Textarea
-                      id={`rec-text-${index}`}
-                      value={rec.text}
-                      onChange={(e) => handleRecommendationChange(index, "text", e.target.value)}
-                      placeholder="Texto da Recomendação"
-                      className="bg-gray-50 border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                      rows={4}
-                    />
+                    <Label htmlFor={`rec-text-${index}`} className="text-xs font-medium text-gray-500 dark:text-[#ADADAD]">Texto</Label>
+                    <Textarea id={`rec-text-${index}`} value={rec.text} onChange={(e) => handleRecommendationChange(index, "text", e.target.value)} placeholder="Texto da Recomendação" className="bg-gray-50 dark:bg-[#1A1A1A] border-gray-300 dark:border-[#282B36] focus:border-sky-500 dark:focus:border-[#ADADAD] focus:ring-sky-500 dark:focus:ring-[#ADADAD] text-gray-900 dark:text-[#F8F8F2] placeholder:text-gray-400 dark:placeholder:text-[#ADADAD]" rows={4} />
                   </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor={`rec-authorName-${index}`} className="text-xs font-medium text-gray-500">Nome do Autor</Label>
-                    <Input
-                      id={`rec-authorName-${index}`}
-                      value={rec.authorName}
-                      onChange={(e) => handleRecommendationChange(index, "authorName", e.target.value)}
-                      placeholder="Nome do Autor"
-                      className="bg-gray-50 border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor={`rec-authorTitle-${index}`} className="text-xs font-medium text-gray-500">Título do Autor</Label>
-                    <Input
-                      id={`rec-authorTitle-${index}`}
-                      value={rec.authorTitle || ""}
-                      onChange={(e) => handleRecommendationChange(index, "authorTitle", e.target.value)}
-                      placeholder="Título do Autor"
-                      className="bg-gray-50 border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor={`rec-authorContext-${index}`} className="text-xs font-medium text-gray-500">Contexto do Autor</Label>
-                    <Input
-                      id={`rec-authorContext-${index}`}
-                      value={rec.authorContext || ""}
-                      onChange={(e) => handleRecommendationChange(index, "authorContext", e.target.value)}
-                      placeholder="Contexto do Autor"
-                      className="bg-gray-50 border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor={`rec-authorImageUrl-${index}`} className="text-xs font-medium text-gray-500">URL Imagem do Autor</Label>
-                    <Input
-                      id={`rec-authorImageUrl-${index}`}
-                      value={rec.authorImageUrl || ""}
-                      onChange={(e) => handleRecommendationChange(index, "authorImageUrl", e.target.value)}
-                      placeholder="https://exemplo.com/autor.png"
-                      className="bg-gray-50 border-gray-300 focus:border-sky-500 focus:ring-sky-500"
-                    />
-                  </div>
+                  {[ 
+                    { id: `rec-authorName-${index}`, name: "authorName", label: "Nome do Autor", placeholder: "Nome do Autor", value: rec.authorName },
+                    { id: `rec-authorTitle-${index}`, name: "authorTitle", label: "Título/Detalhes do Autor", placeholder: "Ex: CEO @ Future Inc.", value: rec.authorTitle || "" },
+                    { id: `rec-authorContext-${index}`, name: "authorContext", label: "Contexto da Recomendação", placeholder: "Ex: Gerenciou diretamente...", value: rec.authorContext || "" },
+                    { id: `rec-authorImageUrl-${index}`, name: "authorImageUrl", label: "URL Imagem do Autor", placeholder: "https://...", value: rec.authorImageUrl || "" },
+                  ].map(field => (
+                     <div key={field.id} className="space-y-1.5">
+                        <Label htmlFor={field.id} className="text-xs font-medium text-gray-500 dark:text-[#ADADAD]">{field.label}</Label>
+                        <Input
+                            id={field.id}
+                            value={field.value}
+                            onChange={(e) => handleRecommendationChange(index, field.name as keyof Recommendation, e.target.value)}
+                            placeholder={field.placeholder}
+                            className="bg-gray-50 dark:bg-[#1A1A1A] border-gray-300 dark:border-[#282B36] focus:border-sky-500 dark:focus:border-[#ADADAD] focus:ring-sky-500 dark:focus:ring-[#ADADAD] text-gray-900 dark:text-[#F8F8F2] placeholder:text-gray-400 dark:placeholder:text-[#ADADAD]"
+                        />
+                    </div>
+                  ))}
                 </div>
               ))}
             </AccordionContent>
