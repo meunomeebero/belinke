@@ -168,27 +168,29 @@ export function CustomizationSidebar({
               </div>
             </AccordionTrigger>
             <AccordionContent className="pt-4 px-1 space-y-4">
-              {[ 
-                { id: "name", label: "Nome do Perfil", placeholder: "Ex: Dr. Nova Quantum", value: profileData.name },
-                { id: "title", label: "Cargo", placeholder: "Ex: Chief Reality Officer...", value: profileData.title },
-                { id: "location", label: "Localização", placeholder: "Ex: Mars Colony Alpha...", value: profileData.location },
-                { id: "followers", label: "Seguidores", placeholder: "Ex: 1 Bilhão", value: profileData.followers },
-                { id: "connections", label: "Conexões", placeholder: "Ex: ∞ Conexões", value: profileData.connections },
-                { id: "profileImageUrl", label: "URL da Imagem de Perfil", placeholder: "https://...", value: profileData.profileImageUrl || ""},
-                { id: "coverImageUrl", label: "URL da Imagem de Capa", placeholder: "https://...", value: profileData.coverImageUrl || "" },
-              ].map(field => (
-                <div key={field.id} className="space-y-1.5">
-                  <Label htmlFor={field.id} className="text-sm font-medium text-gray-600 dark:text-[#ADADAD]">{field.label}</Label>
-                  <Input
-                    id={field.id}
-                    name={field.id}
-                    value={field.value}
-                    onChange={handleInputChange}
-                    placeholder={field.placeholder}
-                    className="bg-white dark:bg-[#1A1A1A] border-gray-300 dark:border-[#282B36] focus:border-sky-500 dark:focus:border-[#ADADAD] focus:ring-sky-500 dark:focus:ring-[#ADADAD] text-gray-900 dark:text-[#F8F8F2] placeholder:text-gray-400 dark:placeholder:text-[#ADADAD]"
-                  />
-                </div>
-              ))}
+              <div className="p-4 border rounded-lg space-y-3 shadow-sm bg-white dark:bg-[#282B36] border-gray-200 dark:border-[#191919]">
+                {[ 
+                  { id: "name", label: "Nome do Perfil", placeholder: "Ex: Dr. Nova Quantum", value: profileData.name },
+                  { id: "title", label: "Cargo", placeholder: "Ex: Chief Reality Officer...", value: profileData.title },
+                  { id: "location", label: "Localização", placeholder: "Ex: Mars Colony Alpha...", value: profileData.location },
+                  { id: "followers", label: "Seguidores", placeholder: "Ex: 1 Bilhão", value: profileData.followers },
+                  { id: "connections", label: "Conexões", placeholder: "Ex: ∞ Conexões", value: profileData.connections },
+                  { id: "profileImageUrl", label: "URL da Imagem de Perfil", placeholder: "https://...", value: profileData.profileImageUrl || ""},
+                  { id: "coverImageUrl", label: "URL da Imagem de Capa", placeholder: "https://...", value: profileData.coverImageUrl || "" },
+                ].map(field => (
+                  <div key={field.id} className="space-y-1.5">
+                    <Label htmlFor={field.id} className="text-sm font-medium text-gray-600 dark:text-[#ADADAD]">{field.label}</Label>
+                    <Input
+                      id={field.id}
+                      name={field.id}
+                      value={field.value}
+                      onChange={handleInputChange}
+                      placeholder={field.placeholder}
+                      className="bg-white dark:bg-[#1A1A1A] border-gray-300 dark:border-[#282B36] focus:border-sky-500 dark:focus:border-[#ADADAD] focus:ring-sky-500 dark:focus:ring-[#ADADAD] text-gray-900 dark:text-[#F8F8F2] placeholder:text-gray-400 dark:placeholder:text-[#ADADAD]"
+                    />
+                  </div>
+                ))}
+              </div>
             </AccordionContent>
           </AccordionItem>
 
