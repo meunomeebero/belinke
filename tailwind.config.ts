@@ -83,12 +83,48 @@ const config: Config = {
   				to: {
   					height: '0'
   				}
+  			},
+  			'bounce-sm': {
+  				'0%, 100%': {
+            transform: 'scale(1) translateY(0)',
+            animationTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
+          },
+  				'50%': {
+            transform: 'scale(0.92) translateY(-4%)',
+            animationTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
+          },
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'bounce-sm': 'bounce-sm 0.2s 1'
+  		},
+  		fontFamily: {
+  			sans: [
+  				"-apple-system",
+  				"system-ui",
+  				"BlinkMacSystemFont",
+  				"\"Segoe UI\"",
+  				"Roboto",
+  				"\"Helvetica Neue\"",
+  				"\"Fira Sans\"",
+  				"Ubuntu",
+  				"Oxygen",
+  				"\"Oxygen Sans\"",
+  				"Cantarell",
+  				"\"Droid Sans\"",
+  				"\"Apple Color Emoji\"",
+  				"\"Segoe UI Emoji\"",
+  				"\"Segoe UI Symbol\"",
+  				"\"Lucida Grande\"",
+  				"Helvetica",
+  				"Arial",
+  				"var(--font-inter)",
+  				"sans-serif",
+  			],
+  			mono: ["var(--font-roboto-mono)", "ui-monospace", "monospace"],
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],
