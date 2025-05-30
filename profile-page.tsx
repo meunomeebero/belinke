@@ -230,9 +230,12 @@ export default function ProfilePage() {
         onDownload={handleDownloadPng}
         onSaveDraft={handleSaveDraft}
       />
-      <div ref={profilePreviewRef} className="flex-1 overflow-y-auto p-8">
+      <div
+        ref={profilePreviewRef}
+        className="flex-1 overflow-y-auto p-8 bg-gray-100 dark:bg-slate-900 bg-[size:10px_10px] bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] dark:bg-[radial-gradient(circle_at_center,theme(colors.slate.600)_1px,transparent_1px)]"
+      >
         <div className="force-light-theme">
-          <div ref={profileContentRef} className="max-w-3xl mx-auto bg-white">
+          <div ref={profileContentRef} className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
             {/* Cover and Profile Section */}
             <div className="relative">
               <div className="h-52 w-full relative">
