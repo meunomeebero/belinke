@@ -21,7 +21,7 @@ Make sure you have Node.js (version 18.x or later recommended) and npm/yarn/pnpm
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/belinke.git # Replace with your actual repo URL
+    git clone git@github.com:meunomeebero/belinke.git
     cd belinke
     ```
 
@@ -70,7 +70,6 @@ The application editor supports theming (e.g., dark mode). However, the profile 
 
 Contributions are welcome! If you have ideas for improvements or new features, feel free to open an issue or submit a pull request.
 
-*(Please remember to replace `https://github.com/your-username/belinke.git` with the actual URL of your repository if you plan to make it public.)*
 
 
 
