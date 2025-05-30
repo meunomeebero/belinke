@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { PlusCircle, Trash2 } from "lucide-react";
+import { PlusCircle, Trash2, UserCircle, Briefcase, Star, Download } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -117,12 +117,20 @@ export function CustomizationSidebar({
                   dark:bg-[#191919] dark:border-r-[#282B36] 
                   font-mono">
       <div className="p-6 border-b border-gray-200 dark:border-b-[#282B36]">
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-[#F8F8F2]">
+        <h2 className="text-xl font-bold text-gray-800 dark:text-[#F8F8F2]">
           🐝 Belink
         </h2>
         <p className="text-sm text-gray-500 dark:text-[#ADADAD]">
           Feito por Bero com ☕️
         </p>
+        <Button 
+          variant="outline"
+          className="w-full mt-4 flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 dark:text-[#ADADAD] dark:border-[#ADADAD] dark:hover:bg-[#282B36] dark:hover:text-[#F8F8F2] focus:ring-[#ADADAD]"
+          // onClick={onDownload} // We'll add this later
+        >
+          <Download size={18} />
+          Baixar PNG do Perfil
+        </Button>
       </div>
 
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
@@ -139,7 +147,10 @@ export function CustomizationSidebar({
                                        rounded-md px-3 
                                        data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 
                                        dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2]">
-              Informações Básicas
+              <div className="flex items-center gap-2">
+                <UserCircle size={18} />
+                Informações Básicas
+              </div>
             </AccordionTrigger>
             <AccordionContent className="pt-4 px-1 space-y-4">
               {[ 
@@ -169,7 +180,10 @@ export function CustomizationSidebar({
           {/* Experiences */}
           <AccordionItem value="experiences" className="border-b-0 mt-2">
             <AccordionTrigger className="py-3 text-base font-medium text-gray-700 hover:no-underline hover:bg-gray-100 dark:hover:bg-[#282B36] rounded-md px-3 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2]">
-              Experiências
+              <div className="flex items-center gap-2">
+                <Briefcase size={18} />
+                Experiências
+              </div>
             </AccordionTrigger>
             <AccordionContent className="pt-4 px-1 space-y-4">
               <Button
@@ -227,7 +241,10 @@ export function CustomizationSidebar({
           {/* Recommendations */}
           <AccordionItem value="recommendations" className="border-b-0 mt-2">
             <AccordionTrigger className="py-3 text-base font-medium text-gray-700 hover:no-underline hover:bg-gray-100 dark:hover:bg-[#282B36] rounded-md px-3 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2]">
-              Recomendações
+              <div className="flex items-center gap-2">
+                <Star size={18} />
+                Recomendações
+              </div>
             </AccordionTrigger>
             <AccordionContent className="pt-4 px-1 space-y-4">
               <Button
