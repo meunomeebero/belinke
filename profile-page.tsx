@@ -13,6 +13,8 @@ import {
 } from "@/components/customization-sidebar"
 import { toPng } from 'html-to-image'
 
+const LOCAL_STORAGE_KEY = 'belinkeProfileDraft'
+
 // This initialProfileData is now updated with sensationalist, fictitious data
 const initialProfileData: ProfileData = {
   name: "Dr. Nova Quantum",
@@ -29,7 +31,7 @@ const initialProfileData: ProfileData = {
       company: "SpaceX Interstellar Division",
       duration: "2042 - Presente (Tempo Terrestre)",
       description: "Liderando a equipe que quebrou a barreira da velocidade da luz. Responsável pelo design do motor de dobra Mk V e por conduzir as primeiras negociações pacíficas com a civilização Centauriana. Frequentemente viajo para reuniões em outras galáxias.",
-      companyImageUrl: undefined,
+      companyImageUrl: "https://www.spacex.com/static/images/share.jpg",
     },
     {
       id: "exp2_sensational",
@@ -55,7 +57,7 @@ const initialProfileData: ProfileData = {
       authorName: "Zorp Glorbaxian (Emissário da Frota Estelar de Proxima B)",
       authorTitle: "Linguista-Chefe Galáctico, Mestre Zenoniano",
       authorContext: "Nova mediou o tratado de paz entre a Federação Terrestre e o Coletivo de Proxima B.",
-      authorImageUrl: undefined,
+      authorImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxQkOG_QEpYsJua6QOTk0AYVUCSnR1LDDrJA&s",
     },
   ],
 }
@@ -65,6 +67,44 @@ export default function ProfilePage() {
   const profilePreviewRef = React.useRef<HTMLDivElement>(null)
   const profileContentRef = React.useRef<HTMLDivElement>(null)
 
+  // Load draft from localStorage on initial render
+  React.useEffect(() => {
+    try {
+      const savedDraft = localStorage.getItem(LOCAL_STORAGE_KEY)
+      if (savedDraft) {
+        const parsedDraft = JSON.parse(savedDraft)
+        // Basic validation: check if it has a name property (adjust as needed)
+        if (parsedDraft && typeof parsedDraft.name === 'string') {
+          setProfileData(parsedDraft)
+          console.log("Draft loaded from localStorage.")
+        } else {
+          console.warn("Invalid draft data found in localStorage.")
+          localStorage.removeItem(LOCAL_STORAGE_KEY) // Clear invalid data
+        }
+      } else {
+        // No draft found, use initialProfileData (already set by useState)
+        console.log("No draft found in localStorage, using initial data.")
+      }
+    } catch (error) {
+      console.error("Error loading draft from localStorage:", error)
+      // If parsing fails or any other error, clear potentially corrupted data
+      localStorage.removeItem(LOCAL_STORAGE_KEY)
+    }
+  }, [])
+
+  const handleSaveDraft = () => {
+    try {
+      const dataToSave = JSON.stringify(profileData)
+      localStorage.setItem(LOCAL_STORAGE_KEY, dataToSave)
+      console.log("Draft saved to localStorage.")
+      // Optionally, provide user feedback (e.g., a toast notification)
+      alert("Rascunho salvo com sucesso!") // Simple alert for now
+    } catch (error) {
+      console.error("Error saving draft to localStorage:", error)
+      alert("Erro ao salvar rascunho.") // Simple alert for now
+    }
+  }
+
   const handleDownloadPng = async () => {
     if (profileContentRef.current === null) {
       console.error("Profile content ref is not available.");
@@ -72,35 +112,93 @@ export default function ProfilePage() {
     }
 
     const node = profileContentRef.current;
+    const originalImageSources: {element: HTMLImageElement, src: string}[] = [];
+
+    // 1. Pre-process images: Convert external URLs to data URLs
+    const images = Array.from(node.getElementsByTagName('img'));
+    const imageProcessingPromises = images.map(async (img) => {
+      if (img.src && (img.src.startsWith('http') || img.src.startsWith('https')) && !img.src.startsWith('data:') && !img.src.includes('/api/image-proxy')) {
+        originalImageSources.push({element: img, src: img.src});
+        try {
+          // Use the image proxy API route
+          const proxyUrl = `/api/image-proxy?imageUrl=${encodeURIComponent(img.src)}`;
+          const response = await fetch(proxyUrl); 
+          if (!response.ok) {
+            console.warn(`Failed to fetch image via proxy: ${img.src}, status: ${response.status}`);
+            img.src = "/placeholder.svg?text=ProxyError"; 
+            return;
+          }
+          const blob = await response.blob();
+          const reader = new FileReader();
+          await new Promise<void>((resolve, reject) => {
+            reader.onloadend = () => {
+              img.src = reader.result as string;
+              resolve();
+            };
+            reader.onerror = () => {
+                console.warn(`Failed to read image blob as data URL (from proxy): ${img.src}`);
+                img.src = "/placeholder.svg?text=ProxyReadError"; // Fallback
+                resolve(); // Resolve to not block other images
+            };
+            reader.readAsDataURL(blob);
+          });
+        } catch (error) {
+          console.warn(`Error processing image ${img.src} via proxy:`, error);
+          img.src = "/placeholder.svg?text=ProxyError";
+        }
+      }
+    });
 
     try {
+      await Promise.allSettled(imageProcessingPromises);
+      // Wait a brief moment for the DOM to update with new image srcs if needed
+      await new Promise(resolve => setTimeout(resolve, 100));
+
       const dataUrl = await toPng(node, {
         cacheBust: true,
         quality: 1.0,
-        pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio * 1.5 : 1.5,
+        pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio * 1.5 : 1.5, 
         backgroundColor: '#ffffff',
-        width: node.scrollWidth,
-        height: node.scrollHeight,
+        width: node.scrollWidth, 
+        height: node.scrollHeight, 
         style: {
-          margin: '0',
+          margin: '0', 
           maxWidth: 'none',
+        },
+        // Add a filter to try and skip images that couldn't be converted
+        filter: (element) => {
+            if (element.tagName === 'IMG') {
+                const imgElement = element as HTMLImageElement;
+                // If it somehow ended up with a placeholder indicating an error, skip it
+                // This might be too aggressive, adjust as needed.
+                if (imgElement.src.includes("placeholder.svg?text=Error")) {
+                    // console.log("Skipping image due to load error:", imgElement.src);
+                    // return false; // Uncomment to actually skip
+                }
+            }
+            return true;
         }
-      })
-      const link = document.createElement('a')
-      link.download = `${profileData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-profile.png`
-      link.href = dataUrl
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
+      });
+      const link = document.createElement('a');
+      link.download = `${profileData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-profile.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } catch (err) {
-      console.error('Oops, something went wrong during PNG generation!', err)
+      console.error('Oops, something went wrong during PNG generation!', err);
       if (err instanceof Error) {
-        console.error('Error name:', err.name)
-        console.error('Error message:', err.message)
-        console.error('Error stack:', err.stack)
+        console.error('Error name:', err.name);
+        console.error('Error message:', err.message);
+        console.error('Error stack:', err.stack);
       }
+    } finally {
+      // 4. Restore original image sources
+      originalImageSources.forEach(({element, src}) => {
+        element.src = src;
+      });
     }
-  }
+  };
 
   // Helper for truncating text - kept from previous dynamic version if useful
   const truncateText = (text: string | undefined, maxLength: number) => {
@@ -130,6 +228,7 @@ export default function ProfilePage() {
         profileData={profileData}
         setProfileData={setProfileData}
         onDownload={handleDownloadPng}
+        onSaveDraft={handleSaveDraft}
       />
       <div ref={profilePreviewRef} className="flex-1 overflow-y-auto p-8">
         <div className="force-light-theme">

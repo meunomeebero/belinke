@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { PlusCircle, Trash2, UserCircle, Briefcase, Star, Download } from "lucide-react";
+import { PlusCircle, Trash2, UserCircle, Briefcase, Star, Download, Save } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -49,12 +49,14 @@ interface CustomizationSidebarProps {
   profileData: ProfileData;
   setProfileData: React.Dispatch<React.SetStateAction<ProfileData>>;
   onDownload: () => void;
+  onSaveDraft: () => void;
 }
 
 export function CustomizationSidebar({
   profileData,
   setProfileData,
   onDownload,
+  onSaveDraft,
 }: CustomizationSidebarProps) {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -125,14 +127,24 @@ export function CustomizationSidebar({
         <p className="text-sm text-gray-500 dark:text-[#ADADAD]">
           Feito por Bero com ☕️
         </p>
-        <Button 
-          variant="outline"
-          className="w-full mt-4 flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 dark:text-[#ADADAD] dark:border-[#ADADAD] dark:hover:bg-[#282B36] dark:hover:text-[#F8F8F2] focus:ring-[#ADADAD] active:animate-bounce-sm"
-          onClick={onDownload}
-        >
-          <Download size={18} />
-          Baixar PNG do Perfil
-        </Button>
+        <div className="mt-4 space-y-2">
+          <Button 
+            variant="outline"
+            className="w-full flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 dark:text-[#ADADAD] dark:border-[#ADADAD] dark:hover:bg-[#282B36] dark:hover:text-[#F8F8F2] focus:ring-[#ADADAD] active:animate-bounce-sm"
+            onClick={onDownload}
+          >
+            <Download size={18} />
+            Baixar PNG do Perfil
+          </Button>
+          <Button 
+            variant="outline"
+            className="w-full flex items-center gap-2 text-green-600 border-green-500 hover:bg-green-50 hover:text-green-700 dark:text-green-400 dark:border-green-400 dark:hover:bg-[#282B36] dark:hover:text-green-300 focus:ring-green-400 active:animate-bounce-sm"
+            onClick={onSaveDraft}
+          >
+            <Save size={18} />
+            Salvar Rascunho
+          </Button>
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
