@@ -122,7 +122,7 @@ export function CustomizationSidebar({
                   font-mono">
       <div className="p-6 border-b border-gray-200 dark:border-b-[#282B36]">
         <h2 className="text-xl font-bold text-gray-800 dark:text-[#F8F8F2]">
-          🐝 Belink
+          🐝 Belinke
         </h2>
         <p className="text-sm text-gray-500 dark:text-[#ADADAD]">
           Feito por Bero com ☕️
