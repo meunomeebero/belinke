@@ -11,6 +11,7 @@ import {
   CustomizationSidebar,
   ProfileData,
 } from "@/components/customization-sidebar"
+import { toPng } from 'html-to-image'
 
 // This initialProfileData is now updated with sensationalist, fictitious data
 const initialProfileData: ProfileData = {
@@ -28,7 +29,7 @@ const initialProfileData: ProfileData = {
       company: "SpaceX Interstellar Division",
       duration: "2042 - Presente (Tempo Terrestre)",
       description: "Liderando a equipe que quebrou a barreira da velocidade da luz. Responsável pelo design do motor de dobra Mk V e por conduzir as primeiras negociações pacíficas com a civilização Centauriana. Frequentemente viajo para reuniões em outras galáxias.",
-      companyImageUrl: "https://www.spacex.com/static/images/share.jpg",
+      companyImageUrl: undefined,
     },
     {
       id: "exp2_sensational",
@@ -54,13 +55,52 @@ const initialProfileData: ProfileData = {
       authorName: "Zorp Glorbaxian (Emissário da Frota Estelar de Proxima B)",
       authorTitle: "Linguista-Chefe Galáctico, Mestre Zenoniano",
       authorContext: "Nova mediou o tratado de paz entre a Federação Terrestre e o Coletivo de Proxima B.",
-      authorImageUrl: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a5da2933-b384-4f9a-bce8-d36940d5d6b8/dhz4zu7-bfc17548-1f9a-408c-8660-77e53d0287b7.jpg/v1/fill/w_235,h_228,q_75,strp/323d1ef0c84de71474e5660905083f63_by_satvrns_art_dhz4zu7-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MjI4IiwicGF0aCI6IlwvZlwvYTVkYTI5MzMtYjM4NC00ZjlhLWJjZTgtZDM2OTQwZDVkNmI4XC9kaHo0enU3LWJmYzE3NTQ4LTFmOWEtNDA4Yy04NjYwLTc3ZTUzZDAyODdiNy5qcGciLCJ3aWR0aCI6Ijw9MjM1In1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.f3mWPf7G1LIgRGKWnaH4hnvevf3zk9E8GVkDOPHVHps",
+      authorImageUrl: undefined,
     },
   ],
 }
 
 export default function ProfilePage() {
   const [profileData, setProfileData] = React.useState<ProfileData>(initialProfileData)
+  const profilePreviewRef = React.useRef<HTMLDivElement>(null)
+  const profileContentRef = React.useRef<HTMLDivElement>(null)
+
+  const handleDownloadPng = async () => {
+    if (profileContentRef.current === null) {
+      console.error("Profile content ref is not available.");
+      return;
+    }
+
+    const node = profileContentRef.current;
+
+    try {
+      const dataUrl = await toPng(node, {
+        cacheBust: true,
+        quality: 1.0,
+        pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio * 1.5 : 1.5,
+        backgroundColor: '#ffffff',
+        width: node.scrollWidth,
+        height: node.scrollHeight,
+        style: {
+          margin: '0',
+          maxWidth: 'none',
+        }
+      })
+      const link = document.createElement('a')
+      link.download = `${profileData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-profile.png`
+      link.href = dataUrl
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } catch (err) {
+      console.error('Oops, something went wrong during PNG generation!', err)
+      if (err instanceof Error) {
+        console.error('Error name:', err.name)
+        console.error('Error message:', err.message)
+        console.error('Error stack:', err.stack)
+      }
+    }
+  }
 
   // Helper for truncating text - kept from previous dynamic version if useful
   const truncateText = (text: string | undefined, maxLength: number) => {
@@ -89,10 +129,11 @@ export default function ProfilePage() {
       <CustomizationSidebar
         profileData={profileData}
         setProfileData={setProfileData}
+        onDownload={handleDownloadPng}
       />
-      <div className="flex-1 overflow-y-auto p-8">
+      <div ref={profilePreviewRef} className="flex-1 overflow-y-auto p-8">
         <div className="force-light-theme">
-          <div className="max-w-3xl mx-auto bg-white">
+          <div ref={profileContentRef} className="max-w-3xl mx-auto bg-white">
             {/* Cover and Profile Section */}
             <div className="relative">
               <div className="h-52 w-full relative">

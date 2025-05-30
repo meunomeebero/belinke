@@ -48,11 +48,13 @@ export interface ProfileData {
 interface CustomizationSidebarProps {
   profileData: ProfileData;
   setProfileData: React.Dispatch<React.SetStateAction<ProfileData>>;
+  onDownload: () => void;
 }
 
 export function CustomizationSidebar({
   profileData,
   setProfileData,
+  onDownload,
 }: CustomizationSidebarProps) {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -125,8 +127,8 @@ export function CustomizationSidebar({
         </p>
         <Button 
           variant="outline"
-          className="w-full mt-4 flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 dark:text-[#ADADAD] dark:border-[#ADADAD] dark:hover:bg-[#282B36] dark:hover:text-[#F8F8F2] focus:ring-[#ADADAD]"
-          // onClick={onDownload} // We'll add this later
+          className="w-full mt-4 flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 dark:text-[#ADADAD] dark:border-[#ADADAD] dark:hover:bg-[#282B36] dark:hover:text-[#F8F8F2] focus:ring-[#ADADAD] active:animate-bounce-sm"
+          onClick={onDownload}
         >
           <Download size={18} />
           Baixar PNG do Perfil
@@ -146,7 +148,8 @@ export function CustomizationSidebar({
                                        hover:bg-gray-100 dark:hover:bg-[#282B36] 
                                        rounded-md px-3 
                                        data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 
-                                       dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2]">
+                                       dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2]
+                                       active:animate-bounce-sm">
               <div className="flex items-center gap-2">
                 <UserCircle size={18} />
                 Informações Básicas
@@ -179,7 +182,7 @@ export function CustomizationSidebar({
 
           {/* Experiences */}
           <AccordionItem value="experiences" className="border-b-0 mt-2">
-            <AccordionTrigger className="py-3 text-base font-medium text-gray-700 hover:no-underline hover:bg-gray-100 dark:hover:bg-[#282B36] rounded-md px-3 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2]">
+            <AccordionTrigger className="py-3 text-base font-medium text-gray-700 hover:no-underline hover:bg-gray-100 dark:hover:bg-[#282B36] rounded-md px-3 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2] active:animate-bounce-sm">
               <div className="flex items-center gap-2">
                 <Briefcase size={18} />
                 Experiências
@@ -190,7 +193,7 @@ export function CustomizationSidebar({
                 variant="outline"
                 size="sm"
                 onClick={addExperience}
-                className="w-full flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 dark:text-[#ADADAD] dark:border-[#ADADAD] dark:hover:bg-[#282B36] dark:hover:text-[#F8F8F2] focus:ring-[#ADADAD]"
+                className="w-full flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 dark:text-[#ADADAD] dark:border-[#ADADAD] dark:hover:bg-[#282B36] dark:hover:text-[#F8F8F2] focus:ring-[#ADADAD] active:animate-bounce-sm"
               >
                 <PlusCircle size={18} /> Adicionar Experiência
               </Button>
@@ -207,7 +210,7 @@ export function CustomizationSidebar({
                       variant="ghost"
                       size="icon"
                       onClick={() => removeExperience(index)}
-                      className="text-red-500 hover:bg-red-100 hover:text-red-600 dark:text-red-400 dark:hover:bg-[#191919] dark:hover:text-red-300"
+                      className="text-red-500 hover:bg-red-100 hover:text-red-600 dark:text-red-400 dark:hover:bg-[#191919] dark:hover:text-red-300 active:animate-bounce-sm"
                     >
                       <Trash2 size={16} />
                     </Button>
@@ -240,7 +243,7 @@ export function CustomizationSidebar({
 
           {/* Recommendations */}
           <AccordionItem value="recommendations" className="border-b-0 mt-2">
-            <AccordionTrigger className="py-3 text-base font-medium text-gray-700 hover:no-underline hover:bg-gray-100 dark:hover:bg-[#282B36] rounded-md px-3 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2]">
+            <AccordionTrigger className="py-3 text-base font-medium text-gray-700 hover:no-underline hover:bg-gray-100 dark:hover:bg-[#282B36] rounded-md px-3 data-[state=open]:bg-gray-100 data-[state=open]:text-gray-900 dark:text-[#ADADAD] dark:data-[state=open]:bg-[#282B36] dark:data-[state=open]:text-[#F8F8F2] active:animate-bounce-sm">
               <div className="flex items-center gap-2">
                 <Star size={18} />
                 Recomendações
@@ -251,7 +254,7 @@ export function CustomizationSidebar({
                 variant="outline"
                 size="sm"
                 onClick={addRecommendation}
-                className="w-full flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 dark:text-[#ADADAD] dark:border-[#ADADAD] dark:hover:bg-[#282B36] dark:hover:text-[#F8F8F2] focus:ring-[#ADADAD]"
+                className="w-full flex items-center gap-2 text-sky-600 border-sky-500 hover:bg-sky-50 hover:text-sky-700 dark:text-[#ADADAD] dark:border-[#ADADAD] dark:hover:bg-[#282B36] dark:hover:text-[#F8F8F2] focus:ring-[#ADADAD] active:animate-bounce-sm"
               >
                 <PlusCircle size={18} /> Adicionar Recomendação
               </Button>
@@ -268,7 +271,7 @@ export function CustomizationSidebar({
                       variant="ghost"
                       size="icon"
                       onClick={() => removeRecommendation(index)}
-                      className="text-red-500 hover:bg-red-100 hover:text-red-600 dark:text-red-400 dark:hover:bg-[#191919] dark:hover:text-red-300"
+                      className="text-red-500 hover:bg-red-100 hover:text-red-600 dark:text-red-400 dark:hover:bg-[#191919] dark:hover:text-red-300 active:animate-bounce-sm"
                     >
                       <Trash2 size={16} />
                     </Button>
